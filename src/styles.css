@@ -1,4 +1,5 @@
 @import 'aos/dist/aos.css';
+@import 'ngx-toastr/toastr';
 
 @tailwind base;
 @tailwind components;
