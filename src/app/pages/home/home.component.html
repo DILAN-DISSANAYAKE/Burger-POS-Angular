@@ -1,0 +1,108 @@
+<section class="py-16 bg-gradient-to-b from-slate-50 to-gray-100">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12" data-aos="fade-down">
+      <h1 class="text-4xl font-black text-slate-900 mb-3">Our Menu</h1>
+      <p class="text-slate-500 font-medium">Choose from our freshly prepared categories</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <div routerLink="/menu/burgers" data-aos="fade-up" data-aos-delay="0" class="group bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/50 border border-slate-100 cursor-pointer hover:-translate-y-2 transition-all duration-300">
+        <img 
+            src="/images/burgers/burger1.jpg" 
+            alt="Burgers Category" 
+            class="w-28 h-28 mx-auto rounded-full object-cover shadow-md mb-5 border-4 border-orange-100 group-hover:border-orange-500 transition-all duration-300"
+            onerror="this.src='https://placehold.co/200x200/png?text=Burgers'"
+        >
+        <h2 class="text-2xl font-bold text-center text-slate-800 group-hover:text-orange-600 transition-colors">Burgers</h2>
+      </div>
+
+      <div routerLink="/menu/subs" data-aos="fade-up" data-aos-delay="100" class="group bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/50 border border-slate-100 cursor-pointer hover:-translate-y-2 transition-all duration-300">
+        <img 
+            src="/images/categories/sub-cat.png" 
+            alt="Submarines Category" 
+            class="w-28 h-28 mx-auto rounded-full object-cover shadow-md mb-5 border-4 border-orange-100 group-hover:border-orange-500 transition-all duration-300"
+            onerror="this.src='https://placehold.co/200x200/png?text=Subs'"
+        >
+        <h2 class="text-2xl font-bold text-center text-slate-800 group-hover:text-orange-600 transition-colors">Submarines</h2>
+      </div>
+
+      <div routerLink="/menu/drinks" data-aos="fade-up" data-aos-delay="200" class="group bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/50 border border-slate-100 cursor-pointer hover:-translate-y-2 transition-all duration-300">
+        <img 
+            src="/images/drinks/dAll.png" 
+            alt="Beverages Category" 
+            class="w-28 h-28 mx-auto rounded-full object-cover shadow-md mb-5 border-4 border-orange-100 group-hover:border-orange-500 transition-all duration-300"
+            onerror="this.src='https://placehold.co/200x200/png?text=Drinks'"
+        >
+        <h2 class="text-2xl font-bold text-center text-slate-800 group-hover:text-orange-600 transition-colors">Drinks</h2>
+      </div>
+
+      <div routerLink="/menu/milkshakes" data-aos="fade-up" data-aos-delay="300" class="group bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/50 border border-slate-100 cursor-pointer hover:-translate-y-2 transition-all duration-300">
+        <img 
+            src="/images/milkshakes/msAll.png" 
+            alt="Milkshakes Category" 
+            class="w-28 h-28 mx-auto rounded-full object-cover shadow-md mb-5 border-4 border-orange-100 group-hover:border-orange-500 transition-all duration-300"
+            onerror="this.src='https://placehold.co/200x200/png?text=Shakes'"
+        >
+        <h2 class="text-2xl font-bold text-center text-slate-800 group-hover:text-orange-600 transition-colors">Milkshakes</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="flex justify-between items-end mb-10" data-aos="fade-right">
+      <div>
+        <h2 class="text-3xl font-black text-slate-900">Popular Picks</h2>
+        <p class="text-slate-500 mt-2">Grab them before they're gone!</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+  @for (item of displayedItems; track item.id; let i = $index) {
+    
+    <div data-aos="zoom-in" [attr.data-aos-delay]="(i % 4) * 100" class="bg-white rounded-2xl shadow-lg border border-slate-100 p-5 flex flex-col items-center relative overflow-hidden group hover:shadow-xl transition-all">
+      
+      @if (i === 0) {
+        <div class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10">HOT</div>
+      }
+
+      <img [src]="item.image" [alt]="item.name" class="w-40 h-40 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+      
+      <h3 class="text-lg font-bold text-slate-800">{{ item.name }}</h3>
+      <span class="text-xl font-black text-orange-500 my-2">${{ item.price }}</span>
+      
+      <button (click)="cartService.addToCart(item)" class="w-full bg-slate-900 hover:bg-orange-500 text-white font-bold py-3 rounded-xl transition-colors shadow-md">
+        Add to Cart
+      </button>
+
+    </div>
+
+  }
+
+</div>
+  </div>
+</section>
+
+<section id="about" class="py-20 bg-slate-50 border-t border-slate-200">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+      <div class="md:w-1/2" data-aos="fade-right">
+        <h2 class="text-4xl font-black text-slate-900 mb-6">About Burgers Shop</h2>
+        <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+          We started with a simple mission: to serve the juiciest, most flavorful burgers in town using only 100% fresh, locally sourced ingredients. Whether you're craving a classic smash burger or a towering submarine sandwich, we craft every meal to perfection.
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Pair your meal with our signature thick milkshakes or an ice-cold beverage, and you've got the perfect combo. Quality food, fast service, and a smile with every order.
+        </p>
+      </div>
+      <div class="md:w-1/2" data-aos="fade-left">
+        <div class="rounded-3xl overflow-hidden shadow-2xl">
+          <img src="/images/ui/shop-interior.jpg" alt="Inside the shop" class="w-full h-80 object-cover bg-slate-300" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Shop+Image'">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
