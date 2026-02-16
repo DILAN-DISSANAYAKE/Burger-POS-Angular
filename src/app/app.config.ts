@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(), 
     provideToastr({
       positionClass: 'toast-bottom-right',
-      timeOut: 1500,                      
+      timeOut: 1800,                      
       progressBar: true,                  
       // preventDuplicates: true,            
     }),

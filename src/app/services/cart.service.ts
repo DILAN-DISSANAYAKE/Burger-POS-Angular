@@ -50,7 +50,7 @@ export class CartService {
     this.cartItems=[];
     this.saveCart();
     localStorage.removeItem('cart');
-    this.toastr.error('Your cart has been cleared.', 'Cart Cleared');
+    this.toastr.info('Your cart has been cleared.', 'Cart Cleared');
   }
   qtyUp(cartItem: CartItem){
     const findItem=this.cartItems.find(item=> item.id===cartItem.id);
