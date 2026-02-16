@@ -1,0 +1,161 @@
+<div class="container mx-auto px-6 py-12">
+  <h1 class="text-4xl font-black text-slate-900 mb-8">Your Cart</h1>
+
+  <div class="flex flex-col lg:flex-row gap-10">
+    
+    <div class="lg:w-2/3">
+      <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
+        
+        @for (item of cartService.getAllItems(); track item.id) {
+          
+          <div class="flex flex-col sm:flex-row items-center justify-between p-6 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+            
+            <div class="flex items-center gap-6 w-full sm:w-2/5 mb-4 sm:mb-0">
+              <div class="w-24 h-24 bg-slate-100 rounded-2xl p-2 flex-shrink-0">
+                <img [src]="item.item.image" [alt]="item.item.name" class="w-full h-full object-contain mix-blend-multiply">
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-800">{{ item.item.name }}</h3>
+                <p class="text-slate-500 font-medium">${{ item.item.price }} each</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 bg-slate-100 rounded-full px-4 py-2">
+              <button (click)="cartService.qtyDown(item)" class="w-8 h-8 rounded-full bg-white shadow hover:bg-orange-500 hover:text-white transition-colors font-bold text-slate-800 flex items-center justify-center">
+                -
+              </button>
+              <span class="font-bold text-lg w-6 text-center text-slate-900">{{ item.qty }}</span>
+              <button (click)="cartService.qtyUp(item)" class="w-8 h-8 rounded-full bg-white shadow hover:bg-orange-500 hover:text-white transition-colors font-bold text-slate-800 flex items-center justify-center">
+                +
+              </button>
+            </div>
+
+            <div class="flex items-center gap-6 mt-4 sm:mt-0 w-full sm:w-auto justify-between sm:justify-end">
+              <div class="text-right">
+                <p class="text-sm text-slate-500">Subtotal</p>
+                <p class="text-xl font-black text-orange-500">${{ (item.item.price * item.qty).toFixed(2) }}</p>
+              </div>
+              
+              <button (click)="cartService.removeItem(item)" class="p-3 text-red-400 hover:text-white hover:bg-red-500 rounded-xl transition-colors" title="Remove Item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+
+          </div>
+
+        } @empty {
+          <div class="p-12 text-center">
+            <div class="text-6xl mb-4">🛒</div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Your cart is empty</h2>
+            <p class="text-slate-500 mb-6">Looks like you haven't added any food yet.</p>
+            <button routerLink="/home" class="bg-slate-900 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-xl transition-colors">
+              Browse Menu
+            </button>
+          </div>
+        }
+
+      </div>
+    </div>
+
+    <div class="lg:w-1/3">
+      <div class="bg-slate-900 rounded-3xl shadow-xl p-8 sticky top-28 border-t-4 border-orange-500">
+        
+        <h2 class="text-2xl font-black text-white mb-6">Order Summary</h2>
+        
+        <div class="space-y-4 text-slate-300 mb-6 border-b border-slate-700 pb-6">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span class="font-bold text-white">${{ cartService.getTotal().toFixed(2) }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Tax (Estimated)</span>
+            <span class="font-bold text-white">$0.00</span>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center mb-8">
+          <span class="text-lg text-slate-300">Total</span>
+          <span class="text-3xl font-black text-orange-500">${{ cartService.getTotal().toFixed(2) }}</span>
+        </div>
+
+        <div class="space-y-4">
+          <button (click)="openReceipt()" class="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-black text-lg py-4 rounded-xl shadow-lg shadow-orange-500/30 transition-all hover:scale-[1.02]">
+            Proceed to Checkout
+          </button>
+          
+          <button (click)="cartService.clearCart()" class="w-full bg-transparent border-2 border-slate-700 text-slate-400 hover:border-red-500 hover:text-red-500 hover:bg-red-500/10 font-bold py-3 rounded-xl transition-all">
+            Clear Cart
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+@if (showReceiptModal) {
+  <div class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+    
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col " data-aos="fade-up" data-aos-duration="300">
+      
+      <div class="bg-slate-900 p-6 text-center relative">
+        <h2 class="text-2xl font-black text-white">Burgers Shop</h2>
+        <p class="text-orange-500 font-bold text-sm mt-1">ORDER CONFIRMATION</p>
+        
+        <button (click)="closeReceipt()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 flex-1 overflow-y-auto max-h-[50vh] bg-slate-50">
+        
+        <div class="border-b-2 border-dashed border-slate-300 pb-4 mb-4">
+            <div class="flex justify-between text-xs font-bold text-slate-400 mb-3 tracking-widest">
+              <span>QTY / ITEM</span>
+              <span>SUBTOTAL</span>
+            </div>
+            
+            @for (cartRow of cartService.getAllItems(); track cartRow.id) {
+              <div class="flex justify-between text-slate-800 font-medium mb-3">
+                <div class="flex gap-3">
+                  <span class="font-black text-slate-900">{{cartRow.qty}}x</span>
+                  <span>{{cartRow.item.name}}</span>
+                </div>
+                <span class="font-bold">${{cartRow.subTotal.toFixed(2)}}</span>
+              </div>
+            }
+        </div>
+
+        <div class="space-y-2 text-slate-600 font-medium">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span>${{cartService.getTotal().toFixed(2)}}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Tax (Estimated)</span>
+            <span>$0.00</span>
+          </div>
+        </div>
+        
+        <div class="flex justify-between items-center mt-4 pt-4 border-t-2 border-dashed border-slate-300">
+          <span class="text-xl font-black text-slate-900">Total Due</span>
+          <span class="text-3xl font-black text-orange-500">${{cartService.getTotal().toFixed(2)}}</span>
+        </div>
+      </div>
+
+      <div class="p-6 bg-white border-t border-slate-100 flex gap-4">
+        <button (click)="closeReceipt()" class="w-1/3 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors">
+          Cancel
+        </button>
+        <button (click)="confirmOrder()" class="w-2/3 py-3 rounded-xl font-black text-white bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 shadow-lg shadow-orange-500/30 transition-transform hover:scale-105">
+          Confirm & Pay
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

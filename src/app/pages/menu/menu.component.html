@@ -1,0 +1,26 @@
+<div class="container mx-auto px-6 py-12">
+  
+  <h1 class="text-4xl font-black text-slate-900 mb-8">
+    {{ currentCategory | titlecase }} Menu
+  </h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    
+    @for (item of displayItems; track item.id) {
+      
+      <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-5 flex flex-col items-center group hover:shadow-xl transition-all">
+        
+        <img [src]="item.image" [alt]="item.name" class="w-56 h-56 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+        
+        <h3 class="text-lg font-bold text-slate-800">{{ item.name }}</h3>
+        <span class="text-xl font-black text-orange-500 my-2">${{ item.price }}</span>
+        
+        <button (click)="cartService.addToCart(item)" class="w-full bg-slate-900 hover:bg-orange-500 text-white font-bold py-3 rounded-xl transition-colors shadow-md">
+          Add to Cart
+        </button>
+      </div>
+
+    }
+
+  </div>
+</div>
