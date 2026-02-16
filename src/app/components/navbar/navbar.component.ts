@@ -9,5 +9,9 @@ import { CartService } from '../../services/cart.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  isMenuOpen: boolean=false;
   cartService=inject(CartService);
+  toggleMenu(){
+    this.isMenuOpen=!this.isMenuOpen;
+  }
 }
