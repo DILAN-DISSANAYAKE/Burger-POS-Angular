@@ -6,7 +6,8 @@ import { CartComponent } from './pages/cart/cart.component';
 import { MenuComponent } from './pages/menu/menu.component';
 
 export const routes: Routes = [
-    {
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
     path: 'login',
     component: LoginComponent 
   },
