@@ -1,0 +1,70 @@
+<div class="min-h-screen bg-[url('/images/burgers/burger3.jpg')] bg-cover bg-center flex items-center justify-center p-4 relative">
+  
+  <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm z-0"></div>
+
+  <div data-aos="zoom-out" data-aos-duration="500" class="relative z-10 w-full max-w-md bg-slate-900/90 backdrop-blur-md border border-slate-700/50 rounded-3xl shadow-2xl p-8 sm:p-10">
+    
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-slate-800 rounded-full border-2 border-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.3)] mb-4">
+        <img src="/images/burgers/burgerIcon.png" alt="Logo" class="w-12 h-12 object-contain" onerror="this.style.display='none'">
+      </div>
+      <h1 class="text-3xl font-black text-white tracking-wide">Burger <span class="text-orange-500">Shop</span></h1>
+      <p class="text-slate-400 font-medium text-sm mt-1">Authorized Personnel Only</p>
+    </div>
+
+    <div class="space-y-5">
+      
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Team Member ID</label>
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+          </span>
+          <input 
+            type="text" 
+            [(ngModel)]="username" 
+            placeholder="e.g. Rasika, Jaya, Sahan, DD"
+            class="w-full pl-11 pr-4 py-3.5 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
+          >
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Security PIN</label>
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>
+          </span>
+          <input 
+            type="password" 
+            [(ngModel)]="password" 
+            placeholder="••••"
+            (keyup.enter)="onLogin()"
+            class="w-full pl-11 pr-4 py-3.5 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors tracking-widest"
+          >
+        </div>
+      </div>
+
+      @if (loginError) {
+        <div class="text-red-400 text-sm font-medium text-center bg-red-500/10 py-2 rounded-lg border border-red-500/20 animate-pulse">
+          Access Denied. Check ID or PIN.
+        </div>
+      }
+
+      <button 
+        (click)="onLogin()"
+        class="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-black text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(249,115,22,0.4)] transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+      >
+        Enter POS
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </button>
+
+    </div>
+  </div>
+</div>
